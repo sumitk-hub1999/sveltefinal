@@ -44,6 +44,7 @@
 	};
 </script>
 
+<link href="./../node_modules/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
 <main>
 	<div class="inner-body">
