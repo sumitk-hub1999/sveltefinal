@@ -44,79 +44,91 @@
 	};
 </script>
 
-<link
-	rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css"
-	integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7"
-	crossorigin="anonymous"
-/>
-
-<link href="./../node_modules/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
 <main>
-	<div class="inner-body">
-		<div class="topbar">
-			<input type="text" /><i class="fa-solid fa-search" />
-			<h1>Your Order:</h1>
-		</div>
-		<div class="inner-body-2">
-			<div class="sidebar">
-				<a href="/" style="color: black; margin-top:30px;"><i class="fa-solid fa-home" /></a>
-				<p>home</p>
-				<a href="/cart" style="color: black; margin-top:30px;"
-					><i class="fa-solid fa-cart-shopping" /></a
-				>
-				<p>order</p>
-				<a href="/cart" style="color: black; margin-top:30px;"><i class="fa-solid fa-user" /></a>
-				<p>user</p>
-			</div>
-			<div class="display">
-				<div class="menu">
-					{#if cartItems.length == 0}
-						<h1 class="nomeals">No items added</h1>
-					{/if}
-					{#if cartItems.length != 0}
-						<ul class="meleo">
-							{#each cartItems as meal, i}
-								<div class="mels">
-									<li><img src={meal.strMealThumb} alt="" style="width: 200px;" /></li>
-									<li>{meal.strMeal}</li>
-									<li>
-										<button class="btn" on:click={() => removeFromCart(i)}>remove from cart</button>
-									</li>
-								</div>
-							{/each}
-						</ul>
-					{/if}
-					<div class="order-subtotal">
-						<h2>Total</h2>
+	<div class="container-fluid d-flex flex-column">
+		<div class="card bg-light text-dark d-flex flex-column">
+			<div class="card-body w-100">
+				<div class="d-flex flex-column w-100">
+					<div class="col-md-3">
+						<div class="topbar mb-4">
+							<input type="text" class="form-control" placeholder="Search" style="width: 100%;" />
 
-						<br />
-						<h2>Cost: Rs{500 * cartItems.length}</h2>
-						<h4>Tax:Rs{500 * cartItems.length * 0.18}</h4>
-						<h1>Total:{500 * cartItems.length + 500 * cartItems.length * 0.18}</h1>
-						<a href="/cart" class="btn" style="text-decoration: none;font-size:0.8rem;"
-							>Proceed to Pay</a
-						>
-						<br />
+							<h1 class="ml-4">Menu:</h1>
+						</div>
+					</div>
+					<div class="col-md-9 w-100">
+						<div class="card bg-light">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-6 d-flex">
+										<div class="sidebar">
+											<a href="/" style="color: black; margin-top: 10px;"
+												><i class="fa-solid fa-home" /></a
+											>
+											<p>home</p>
+											<a href="/cart" style="color:black; margin-top: 10px;"
+												><i class="fa-solid fa-cart-shopping" /></a
+											>
+											<p>order</p>
+											<a href="/cart" style="color: black; margin-top: 10px;"
+												><i class="fa-solid fa-user" /></a
+											>
+											<p>user</p>
+										</div>
+										<div class="col-md-1" />
+										<div class="card bg-light w-100 container-fluid col-md-9">
+											<div class="card-body row w-100">
+												<div class="display w-100">
+													<div class="menu w-100" style=" overflow-y: auto;">
+														{#if cartItems.length == 0}
+															<h1 class="nomeals">No items added</h1>
+														{/if}
+														{#if cartItems.length != 0}
+															<ul class="meleo">
+																{#each cartItems as meal, i}
+																	<div class="mels">
+																		<li>
+																			<img src={meal.strMealThumb} alt="" style="width: 200px;" />
+																		</li>
+																		<li>{meal.strMeal}</li>
+																		<li>
+																			<button class="btn" on:click={() => removeFromCart(i)}
+																				>remove from cart</button
+																			>
+																		</li>
+																	</div>
+																{/each}
+															</ul>
+														{/if}
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3" />
+									<div class="col-md-3">
+										<div class="card bg-light">
+											<div class="card-body">
+												<h2>Total</h2>
+												<ul>
+													{#each cartItems as item}
+														<li>{item.strMeal}</li>
+													{/each}
+												</ul>
+												<br />
+												<h2>Cost: Rs{500 * cartItems.length}</h2>
+												<h4>Tax: Rs{500 * cartItems.length * 0.18}</h4>
+												<h1>Total: {500 * cartItems.length + 500 * cartItems.length * 0.18}</h1>
+												<br />
+												<a href="/cart" class="btn" style="text-decoration: none;">Move to Cart</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				<!-- <div class="order-subtotal">
-					<h2>Total</h2>
-
-					<ul>{cartItems.map((i) => i.strMeal)}</ul>
-					<ul>
-						{#each cartItems as item}
-							<li>{item.strMeal}</li>
-						{/each}
-					</ul>
-					<br />
-				<h2>Cost: Rs{500 * cartItems.length}</h2>
-					<h4>Tax:Rs{500 * cartItems.length * 0.18}</h4>
-					<h1>Total:{500 * cartItems.length + 500 * cartItems.length * 0.18}</h1>
-					<br />
-					<a href="/cart">Move to Cart</a>
-				</div> -->
 			</div>
 		</div>
 	</div>
@@ -229,5 +241,45 @@
 		margin-top: 5px;
 		cursor: pointer;
 		border-radius: 2px;
+	}
+	@media (max-width: 768px) {
+		.inner-body-2 {
+			flex-direction: column;
+		}
+
+		.menu {
+			width: 100%;
+		}
+
+		.order-subtotal {
+			position: static;
+			padding-top: 20px;
+			background-color: transparent;
+		}
+
+		.topbar input {
+			width: 100%;
+		}
+
+		.topbar i {
+			margin-left: 10px;
+		}
+	}
+
+	@media (max-width: 576px) {
+		.meleo {
+			grid-template-columns: repeat(1, 1fr);
+		}
+		.meleo li {
+			font-size: 10px;
+		}
+		.meleo li img {
+			height: 100px;
+			width: auto;
+		}
+		.meleo li button {
+			font-size: 10px;
+			padding: 1px;
+		}
 	}
 </style>
